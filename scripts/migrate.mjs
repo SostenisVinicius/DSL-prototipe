@@ -1,0 +1,13 @@
+import { mkdir, writeFile } from 'node:fs/promises';
+const sql=`CREATE TABLE IF NOT EXISTS users (id text primary key, email text not null, password_hash text not null, created_at timestamp not null default now());
+CREATE TABLE IF NOT EXISTS design_systems (id text primary key, name text not null);
+CREATE TABLE IF NOT EXISTS design_system_versions (id text primary key, design_system_id text not null, version text not null, status text not null);
+CREATE TABLE IF NOT EXISTS design_system_components (id text primary key, version_id text not null, definition jsonb not null);
+CREATE TABLE IF NOT EXISTS component_inputs (id text primary key, component_id text not null, definition jsonb not null);
+CREATE TABLE IF NOT EXISTS component_outputs (id text primary key, component_id text not null, definition jsonb not null);
+CREATE TABLE IF NOT EXISTS component_examples (id text primary key, component_id text not null, definition jsonb not null);
+CREATE TABLE IF NOT EXISTS page_patterns (id text primary key, version_id text not null, type text not null, prompt text not null);
+CREATE TABLE IF NOT EXISTS generations (id text primary key, status text not null, stage text not null, prompt text not null, dsl jsonb, normalized_dsl jsonb, duration_ms integer);
+CREATE TABLE IF NOT EXISTS generation_logs (id text primary key, generation_id text not null, stage text not null, level text not null, message text not null, created_at timestamp not null default now());
+CREATE TABLE IF NOT EXISTS generated_files (id text primary key, generation_id text not null, path text not null, content text not null);`;
+await mkdir('packages/database/migrations',{recursive:true}); await writeFile('packages/database/migrations/0001_initial.sql',sql); console.log('migration written');

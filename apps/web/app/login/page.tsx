@@ -1,0 +1,1 @@
+export default function Login(){return <main><h1>Login</h1><form className="card"><input defaultValue="dev@example.com" aria-label="E-mail"/><input defaultValue="dev123" type="password" aria-label="Senha"/><button>Entrar</button></form></main>}

@@ -1,0 +1,1 @@
+{"name":"generated-angular-screen","private":true,"scripts":{"lint":"node tools/static-check.mjs","test":"node tools/static-check.mjs","build":"node tools/static-check.mjs"},"dependencies":{"@angular/core":"^20.0.0","@angular/common":"^20.0.0","@angular/router":"^20.0.0","rxjs":"^7.8.0","zone.js":"^0.15.0"},"devDependencies":{}}

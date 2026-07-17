@@ -1,0 +1,1 @@
+module.exports={root:true,parser:'@typescript-eslint/parser',plugins:['@typescript-eslint'],extends:['eslint:recommended','plugin:@typescript-eslint/recommended'],ignorePatterns:['dist','generated','storage','apps/web/.next','packages/project-templates/angular-template'],rules:{'@typescript-eslint/no-explicit-any':'error'}};

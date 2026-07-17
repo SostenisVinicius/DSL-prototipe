@@ -1,0 +1,12 @@
+import { pgTable, text, timestamp, jsonb, integer } from 'drizzle-orm/pg-core';
+export const users=pgTable('users',{id:text('id').primaryKey(),email:text('email').notNull(),passwordHash:text('password_hash').notNull(),createdAt:timestamp('created_at').notNull().defaultNow()});
+export const designSystems=pgTable('design_systems',{id:text('id').primaryKey(),name:text('name').notNull()});
+export const designSystemVersions=pgTable('design_system_versions',{id:text('id').primaryKey(),designSystemId:text('design_system_id').notNull(),version:text('version').notNull(),status:text('status').notNull()});
+export const designSystemComponents=pgTable('design_system_components',{id:text('id').primaryKey(),versionId:text('version_id').notNull(),definition:jsonb('definition').notNull()});
+export const componentInputs=pgTable('component_inputs',{id:text('id').primaryKey(),componentId:text('component_id').notNull(),definition:jsonb('definition').notNull()});
+export const componentOutputs=pgTable('component_outputs',{id:text('id').primaryKey(),componentId:text('component_id').notNull(),definition:jsonb('definition').notNull()});
+export const componentExamples=pgTable('component_examples',{id:text('id').primaryKey(),componentId:text('component_id').notNull(),definition:jsonb('definition').notNull()});
+export const pagePatterns=pgTable('page_patterns',{id:text('id').primaryKey(),versionId:text('version_id').notNull(),type:text('type').notNull(),prompt:text('prompt').notNull()});
+export const generations=pgTable('generations',{id:text('id').primaryKey(),status:text('status').notNull(),stage:text('stage').notNull(),prompt:text('prompt').notNull(),dsl:jsonb('dsl'),normalizedDsl:jsonb('normalized_dsl'),durationMs:integer('duration_ms')});
+export const generationLogs=pgTable('generation_logs',{id:text('id').primaryKey(),generationId:text('generation_id').notNull(),stage:text('stage').notNull(),level:text('level').notNull(),message:text('message').notNull(),createdAt:timestamp('created_at').notNull().defaultNow()});
+export const generatedFiles=pgTable('generated_files',{id:text('id').primaryKey(),generationId:text('generation_id').notNull(),path:text('path').notNull(),content:text('content').notNull()});

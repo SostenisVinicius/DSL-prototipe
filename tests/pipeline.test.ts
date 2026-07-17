@@ -1,0 +1,12 @@
+import { describe, expect, it } from 'vitest';
+import { validateScreenDsl, normalizeScreenDsl } from '@dsl/screen-dsl';
+import { validateSemantics, DesignSystemRegistry, demoComponents } from '@dsl/design-system-registry';
+import { MockScreenDslProvider } from '@dsl/prompt-planner';
+import { toAngularPageGenerationModel } from '@dsl/angular-generation-model';
+import { generateAngularFiles, registerRoute } from '@dsl/angular-generator';
+import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+describe('vertical pipeline',()=>{it('validates, normalizes and generates contracts page',async()=>{const provider=new MockScreenDslProvider(); const result=await provider.generate({prompt:'contratos',pageType:'list-page',route:'/contratos',components:demoComponents}); const structural=validateScreenDsl(result.dsl); expect(structural.valid).toBe(true); if(!structural.valid) return; expect(validateSemantics(structural.data,new DesignSystemRegistry())).toEqual([]); const normalized=normalizeScreenDsl(structural.data); const model=toAngularPageGenerationModel(normalized); const files=generateAngularFiles(model); expect(files.map(f=>f.path)).toContain('src/app/pages/contract-list/contract-list.page.ts'); expect(files.some(f=>f.content.includes('DsTableComponent'))).toBe(true);});
+it('rejects unknown components and inputs',async()=>{const provider=new MockScreenDslProvider(); const result=await provider.generate({prompt:'contratos',pageType:'list-page',route:'/contratos',components:demoComponents}); result.dsl.regions[0]!.components[0]!.componentId='ds-ghost'; result.dsl.regions[1]!.components[0]!.props.ghost='x'; const issues=validateSemantics(result.dsl,new DesignSystemRegistry()); expect(issues.some(i=>i.code==='UNKNOWN_COMPONENT')).toBe(true);});
+it('registers route idempotently',async()=>{const dir=await mkdtemp(path.join(tmpdir(),'routes-')); const file=path.join(dir,'app.routes.ts'); await writeFile(file,"import { Routes } from '@angular/router';\nexport const routes: Routes = [\n];\n"); const provider=new MockScreenDslProvider(); const result=await provider.generate({prompt:'contratos',pageType:'list-page',route:'/contratos',components:demoComponents}); const model=toAngularPageGenerationModel(normalizeScreenDsl(result.dsl)); await registerRoute(file,model); await registerRoute(file,model); const text=await readFile(file,'utf8'); expect(text.match(/path: 'contratos'/g)?.length).toBe(1);});});
