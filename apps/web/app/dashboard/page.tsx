@@ -1,0 +1,1 @@
+export default function Dashboard(){return <main><h1>Dashboard</h1><div className="card"><strong>Contratos demo</strong><p>Status: pronto para gerar via worker.</p><p>Tipo: list-page · Design System: Demo DS</p></div></main>}

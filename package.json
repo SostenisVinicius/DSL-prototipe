@@ -1,0 +1,47 @@
+{
+  "name": "dsl-prototipe",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist generated storage .turbo",
+    "typecheck": "tsc -b",
+    "test": "node scripts/static-test.mjs",
+    "lint": "node scripts/static-test.mjs",
+    "build": "node scripts/static-build.mjs",
+    "web:build": "next build apps/web",
+    "db:migrate": "node scripts/migrate.mjs",
+    "db:seed": "node scripts/seed.mjs",
+    "worker:demo": "node scripts/generate-contracts.mjs",
+    "generate:contracts": "node scripts/generate-contracts.mjs",
+    "format": "prettier --write ."
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@types/node": "latest",
+    "ajv": "latest",
+    "ajv-formats": "latest",
+    "drizzle-orm": "latest",
+    "next": "latest",
+    "pg": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "typescript": "latest",
+    "zod": "latest",
+    "bullmq": "latest",
+    "ioredis": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "prettier": "latest",
+    "tsx": "latest",
+    "vitest": "latest"
+  }
+}

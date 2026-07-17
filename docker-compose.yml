@@ -1,0 +1,8 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment: { POSTGRES_USER: dsl, POSTGRES_PASSWORD: dsl, POSTGRES_DB: dsl }
+    ports: ['5432:5432']
+  redis:
+    image: redis:7-alpine
+    ports: ['6379:6379']

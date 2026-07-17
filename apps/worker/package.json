@@ -1,0 +1,1 @@
+{"name":"@dsl/worker","type":"module","scripts":{"demo":"tsx src/demo.ts"}}

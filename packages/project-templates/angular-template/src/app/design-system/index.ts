@@ -1,0 +1,18 @@
+import { Component, Input } from '@angular/core';
+@Component({selector:'ds-page',standalone:true,template:'<main class="ds-page"><ng-content /></main>'}) export class DsPageComponent { @Input() title = ''; }
+@Component({selector:'ds-page-header',standalone:true,template:'<header><h1>{{title}}</h1><p>{{description}}</p><ng-content /></header>'}) export class DsPageHeaderComponent { @Input() title=''; @Input() description=''; }
+@Component({selector:'ds-button',standalone:true,template:'<button type="button">{{label}}</button>'}) export class DsButtonComponent { @Input() label=''; @Input() variant='primary'; @Input() size='md'; }
+@Component({selector:'ds-input',standalone:true,template:'<label>{{label}}<input [placeholder]="placeholder" [value]="value" /></label>'}) export class DsInputComponent { @Input() label=''; @Input() placeholder=''; @Input() value=''; }
+@Component({selector:'ds-search-input',standalone:true,template:'<label>{{label}}<input type="search" [placeholder]="placeholder" /></label>'}) export class DsSearchInputComponent { @Input() label='Pesquisar'; @Input() placeholder=''; }
+@Component({selector:'ds-select',standalone:true,template:'<label>{{label}}<select><option *ngFor="let o of options" [value]="o.value">{{o.label}}</option></select></label>'}) export class DsSelectComponent { @Input() label=''; @Input() options: readonly {label:string;value:string}[]=[]; @Input() value=''; }
+@Component({selector:'ds-textarea',standalone:true,template:'<label>{{label}}<textarea>{{value}}</textarea></label>'}) export class DsTextareaComponent { @Input() label=''; @Input() value=''; }
+@Component({selector:'ds-checkbox',standalone:true,template:'<label><input type="checkbox" [checked]="checked" />{{label}}</label>'}) export class DsCheckboxComponent { @Input() label=''; @Input() checked=false; }
+@Component({selector:'ds-date-picker',standalone:true,template:'<label>{{label}}<input type="date" [value]="value" /></label>'}) export class DsDatePickerComponent { @Input() label=''; @Input() value=''; }
+@Component({selector:'ds-filter-bar',standalone:true,template:'<div class="filter-bar"><ng-content /></div>'}) export class DsFilterBarComponent {}
+@Component({selector:'ds-table',standalone:true,template:'<table><thead><tr><th *ngFor="let c of columns">{{c.label}}</th></tr></thead><tbody><tr *ngFor="let r of rows"><td *ngFor="let c of columns">{{r[c.key]}}</td></tr></tbody></table>'}) export class DsTableComponent { @Input() columns: readonly {key:string;label:string}[]=[]; @Input() rows: readonly Record<string,string>[]=[]; }
+@Component({selector:'ds-pagination',standalone:true,template:'<nav aria-label="Paginação">Página {{page}} de {{total}}</nav>'}) export class DsPaginationComponent { @Input() page=1; @Input() pageSize=10; @Input() total=0; }
+@Component({selector:'ds-card',standalone:true,template:'<article><h2>{{title}}</h2><ng-content /></article>'}) export class DsCardComponent { @Input() title=''; }
+@Component({selector:'ds-tag',standalone:true,template:'<span>{{label}}</span>'}) export class DsTagComponent { @Input() label=''; @Input() tone='neutral'; }
+@Component({selector:'ds-alert',standalone:true,template:'<section role="alert"><strong>{{title}}</strong><p>{{message}}</p></section>'}) export class DsAlertComponent { @Input() title=''; @Input() message=''; @Input() tone='danger'; }
+@Component({selector:'ds-loading',standalone:true,template:'<p aria-live="polite">{{label}}</p>'}) export class DsLoadingComponent { @Input() label='Carregando'; }
+@Component({selector:'ds-empty-state',standalone:true,template:'<section><h2>{{title}}</h2><p>{{description}}</p></section>'}) export class DsEmptyStateComponent { @Input() title=''; @Input() description=''; }

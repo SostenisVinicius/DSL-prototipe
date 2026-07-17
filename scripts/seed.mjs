@@ -1,0 +1,3 @@
+import { mkdir, writeFile } from 'node:fs/promises';
+const components=['ds-page','ds-page-header','ds-button','ds-input','ds-search-input','ds-select','ds-textarea','ds-checkbox','ds-date-picker','ds-filter-bar','ds-table','ds-pagination','ds-card','ds-tag','ds-alert','ds-loading','ds-empty-state'];
+await mkdir('storage',{recursive:true}); await writeFile('storage/seed.json',JSON.stringify({user:{email:'dev@example.com',password:'dev123'},designSystem:'Demo DS',version:'1.0.0',components,prompts:['listagem de contratos','formulário de cadastro de fornecedor','detalhe de usuário']},null,2)); console.log('seed written');
